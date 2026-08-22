@@ -21,13 +21,13 @@ async function metricSeries(mt) {
     const j = await llama(`/protocol/${mt.slug}`);
     let tvl = (j.tvl || []).map((p) => [p.date * 1000, p.totalLiquidityUSD]);
     if (mt.chain && j.chainTvls?.[mt.chain]?.tvl) tvl = j.chainTvls[mt.chain].tvl.map((p) => [p.date * 1000, p.totalLiquidityUSD]);
-    return { daily: tvl.slice(-400), monthly: toMonthly(tvl, 'last'), mode: 'level' };
+    return { daily: tvl.slice(-90), monthly: toMonthly(tvl, 'last'), mode: 'level' };
   }
   if (mt.source === 'llama-dex' || mt.source === 'llama-fees') {
     const kind = mt.source === 'llama-dex' ? 'dexs' : 'fees';
     const j = await llama(`/summary/${kind}/${mt.slug}?dataType=${mt.dataType || (kind === 'dexs' ? 'dailyVolume' : 'dailyFees')}`);
     const d = (j.totalDataChart || []).map((p) => [p[0] * 1000, p[1]]);
-    return { daily: d.slice(-400), monthly: toMonthly(d, 'sum'), mode: 'flow', total24: j.total24h, total7d: j.total7d, total30d: j.total30d };
+    return { daily: d.slice(-90), monthly: toMonthly(d, 'sum'), mode: 'flow', total24: j.total24h, total7d: j.total7d, total30d: j.total30d };
   }
   if (mt.source === 'manual') {
     const d = mt.points.map((p) => [Date.parse(p[0]), p[1]]);

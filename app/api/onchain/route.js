@@ -3,7 +3,7 @@ import { TOKEN } from '../../../token.config';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 const SYS = '11111111111111111111111111111111';
-const RPCS = [process.env.SOLANA_RPC, 'https://api.mainnet-beta.solana.com', 'https://solana-rpc.publicnode.com', 'https://solana.drpc.org'].filter(Boolean);
+const RPCS = [process.env.SOLANA_RPC, 'https://api.mainnet-beta.solana.com', 'https://solana-rpc.publicnode.com', 'https://solana.publicnode.com', 'https://rpc.ankr.com/solana', 'https://solana-mainnet.g.alchemy.com/v2/demo', 'https://api.mainnet-beta.solana.com'].filter(Boolean);
 const LABELS = {
   '5tzFkiKscXHK5ZXCGbXZxdw7gTjjD1mBwuoFbhUvuAi9': 'Binance', '9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM': 'Binance', '2ojv9BAiHUrvsm9gxDe7fJSzbNZSJcxZvf8dqmWGHG8S': 'Binance',
   'AC5RDfQFmDS1deWZos921JfqscXdByf8BKHs5ACWjtW2': 'Bybit', '5VCwKtCXgCJ6kit5FybXjvriW3xELsFxY5XoJ7tCPEH4': 'OKX', 'H8sMJSCQxfKiFTCfDR3DUMLPwcRbM61LGFJ8N4dK3WjS': 'Coinbase',
@@ -21,9 +21,11 @@ const PROGRAMS = {
   TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA: ['Self-owned token acct (vesting-like)', 'vesting'],
   ...(TOKEN.onchain.programs || {}),
 };
-async function rpc(method, params, timeout = 25000) {
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+async function rpc(method, params, timeout = 12000) {
   const errs = [];
-  for (const url of RPCS) {
+  for (let i = 0; i < RPCS.length; i++) {
+    const url = RPCS[i]; if (i > 0) await sleep(800);
     try {
       const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), timeout);
       const r = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }), signal: ctrl.signal });
