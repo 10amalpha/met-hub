@@ -34,7 +34,7 @@ async function metricSeries(mt) {
     return { daily: d, monthly: d.map(([t, y]) => ({ t, y })), mode: mt.mode || 'level', manual: true, note: mt.note };
   }
   if (mt.source === 'rpc-supply') {
-    const r = await fetch(mt.rpc || 'https://api.mainnet-beta.solana.com', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getTokenSupply', params: [mt.mint] }) });
+    const r = await fetch(mt.rpc || process.env.SOLANA_RPC || (process.env.HELIUS_API_KEY ? `https://mainnet.helius-rpc.com/?api-key=${process.env.HELIUS_API_KEY}` : 'https://api.mainnet-beta.solana.com'), { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'getTokenSupply', params: [mt.mint] }) });
     const j = await r.json(); const sup = Number(j.result?.value?.uiAmount || 0);
     const burned = mt.minted - sup;
     return { daily: [[Date.now(), burned]], monthly: [{ t: Date.now(), y: burned }], mode: 'level', supply: sup };

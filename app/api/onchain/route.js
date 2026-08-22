@@ -3,7 +3,7 @@ import { TOKEN } from '../../../token.config';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 const SYS = '11111111111111111111111111111111';
-const RPCS = [process.env.SOLANA_RPC, 'https://api.mainnet-beta.solana.com', 'https://solana-rpc.publicnode.com', 'https://solana.publicnode.com', 'https://rpc.ankr.com/solana', 'https://solana-mainnet.g.alchemy.com/v2/demo', 'https://api.mainnet-beta.solana.com'].filter(Boolean);
+const RPCS = [process.env.SOLANA_RPC, process.env.HELIUS_API_KEY ? `https://mainnet.helius-rpc.com/?api-key=${process.env.HELIUS_API_KEY}` : null, 'https://api.mainnet-beta.solana.com', 'https://solana-rpc.publicnode.com', 'https://solana.publicnode.com', 'https://rpc.ankr.com/solana', 'https://solana-mainnet.g.alchemy.com/v2/demo', 'https://api.mainnet-beta.solana.com'].filter(Boolean);
 const LABELS = {
   '5tzFkiKscXHK5ZXCGbXZxdw7gTjjD1mBwuoFbhUvuAi9': 'Binance', '9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM': 'Binance', '2ojv9BAiHUrvsm9gxDe7fJSzbNZSJcxZvf8dqmWGHG8S': 'Binance',
   'AC5RDfQFmDS1deWZos921JfqscXdByf8BKHs5ACWjtW2': 'Bybit', '5VCwKtCXgCJ6kit5FybXjvriW3xELsFxY5XoJ7tCPEH4': 'OKX', 'H8sMJSCQxfKiFTCfDR3DUMLPwcRbM61LGFJ8N4dK3WjS': 'Coinbase',
