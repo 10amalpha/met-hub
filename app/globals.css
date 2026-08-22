@@ -1,0 +1,110 @@
+/* 10AMPRO Hub v5p — Bloomberg Terminal Aesthetic */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0c0c0e;
+  --surface: #111114;
+  --surface-2: #18181b;
+  --border: #27272a;
+  --border-subtle: #1e1e22;
+  --text-muted: #71717a;
+  --text-secondary: #a1a1aa;
+  --text-primary: #e4e4e7;
+  --text-bright: #f4f4f5;
+  --green: #22c55e;
+  --green-dim: #166534;
+  --green-bg: #052e16;
+  --red: #ef4444;
+  --red-dim: #7f1d1d;
+  --red-bg: #1c0a0a;
+  --gold: #D4A843;
+  --amber: #f59e0b;
+  --hover-bg: rgba(255,255,255,0.02);
+  --cell-pos-bg: #052e16;
+  --cell-pos-border: #22c55e40;
+  --cell-neg-bg: #1c0a0a;
+  --cell-neg-border: #ef444440;
+  --cell-neutral-bg: #18181b;
+  --cell-neutral-border: #27272a;
+  --share-bg: #0c0c0e;
+}
+
+:root.light {
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --surface-2: #f1f3f5;
+  --border: #dee2e6;
+  --border-subtle: #e9ecef;
+  --text-muted: #868e96;
+  --text-secondary: #495057;
+  --text-primary: #212529;
+  --text-bright: #0c0c0e;
+  --green: #16a34a;
+  --green-dim: #166534;
+  --green-bg: #dcfce7;
+  --red: #dc2626;
+  --red-dim: #7f1d1d;
+  --red-bg: #fee2e2;
+  --gold: #b8941f;
+  --amber: #d97706;
+  --hover-bg: rgba(0,0,0,0.03);
+  --cell-pos-bg: #dcfce7;
+  --cell-pos-border: #86efac;
+  --cell-neg-bg: #fee2e2;
+  --cell-neg-border: #fca5a5;
+  --cell-neutral-bg: #f1f3f5;
+  --cell-neutral-border: #dee2e6;
+  --share-bg: #ffffff;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Utility */
+.mono { font-family: 'JetBrains Mono', monospace; }
+.sans { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+.space { font-family: 'Space Grotesk', sans-serif; }
+
+/* Bloomberg cell coloring */
+.cell-pos { background: var(--green-bg); color: var(--green); }
+.cell-neg { background: var(--red-bg); color: var(--red); }
+.cell-neutral { background: var(--surface); color: var(--text-secondary); }
+
+/* Signal badges */
+.signal-risk-on { background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.3); color: var(--green); }
+.signal-risk-off { background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); color: var(--red); }
+.signal-mixed { background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3); color: var(--amber); }
+
+/* Mobile breakpoint */
+@media (max-width: 768px) {
+  html { font-size: 11px; }
+  .macro-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  .macro-label-col { display: none !important; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
